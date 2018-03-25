@@ -1,14 +1,18 @@
 const path = require('path');
 const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackConfig = require('./webpack.config');
+
+const PUBLIC = path.join(__dirname, 'public');
 
 module.exports = merge(webpackConfig, {
   devtool: 'source-map',
-  output: {
-    pathinfo: true,
-    publicPath: '/',
-    filename: '[name].js'
-  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(PUBLIC, 'index.template.html'),
+      filename: './index.html'
+    })
+  ],
   optimization: {
     minimize: false,
     runtimeChunk: true,
@@ -36,7 +40,7 @@ module.exports = merge(webpackConfig, {
     }
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    port: 3001,
     compress: false,
     stats: {
       colors: true

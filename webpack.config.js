@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { dependencies } = require('./package.json');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -12,7 +11,11 @@ const PUBLIC = path.join(__dirname, 'public');
 module.exports = {
   entry: {
     vendor: Object.keys(dependencies),
-    bundle: [path.join(SRC_JS, 'app.jsx')]
+    bundle: path.join(SRC_JS, 'app.jsx')
+  },
+  output: {
+    path: path.join(PUBLIC, 'dist'),
+    filename: '[name].[hash].js'
   },
   resolve: {
     modules: [
@@ -30,10 +33,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       APP_CONFIG: fs.readFileSync(path.resolve(__dirname, 'configs', `${NODE_ENV}.json`)).toString()
-    }),
-    new HtmlWebpackPlugin({
-      template: path.resolve(PUBLIC, 'index.template.html'),
-      filename: './index.html'
     }),
   ],
   module: {
