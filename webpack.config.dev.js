@@ -6,7 +6,8 @@ const webpackConfig = require('./webpack.config');
 const PUBLIC = path.join(__dirname, 'public');
 
 module.exports = merge(webpackConfig, {
-  devtool: 'source-map',
+  mode: 'development',
+  devtool: 'eval-sourcemap ',
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(PUBLIC, 'index.template.html'),
@@ -41,6 +42,7 @@ module.exports = merge(webpackConfig, {
   },
   devServer: {
     port: 3001,
+    overlay: true,
     compress: false,
     stats: {
       colors: true

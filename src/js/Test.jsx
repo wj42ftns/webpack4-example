@@ -6,6 +6,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 const App = () => {
+  console.log(43);
+  
   return (
     <div>
       <Module />

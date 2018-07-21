@@ -13,10 +13,11 @@ const IS_DEV = (NODE_ENV === 'development');
 const PUBLIC = path.join(__dirname, 'public');
 
 module.exports = merge(webpackConfig, {
+  mode: 'production',
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new UglifyJsPlugin({ // родной minimize - не выдирает комментарии о лицензиях - это кладёт их рядом и в бандле тратит 1 строку, на коммент с указанием на лицензии
-      sourceMap: true,
+      sourceMap: false,
       extractComments: true
     }),
     new MiniCssExtractPlugin({
