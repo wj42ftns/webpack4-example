@@ -13,9 +13,9 @@ const IS_DEV = (NODE_ENV === 'development');
 const PUBLIC = path.join(__dirname, 'public');
 
 module.exports = merge(webpackConfig, {
+  mode: 'production',
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new UglifyJsPlugin({ // родной minimize - не выдирает комментарии о лицензиях - это кладёт их рядом и в бандле тратит 1 строку, на коммент с указанием на лицензии
+    new UglifyJsPlugin({ // it's better than native minimize - because get LICENSE to another file.
       sourceMap: true,
       extractComments: true
     }),
@@ -23,7 +23,6 @@ module.exports = merge(webpackConfig, {
       filename: '[name].[hash].css',
       chunkFilename: '[id].css'
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new CleanWebpackPlugin(
       ['dist'],
@@ -70,7 +69,7 @@ module.exports = merge(webpackConfig, {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader, // он не умеет пока в HMR (но нужен в prod как замена 'extract-text-webpack-plugin' для 4 версии webpack)
+          MiniCssExtractPlugin.loader, // it doesn't work wiht HMR (but need in production instead 'extract-text-webpack-plugin' for webpack 4)
           {
             loader: 'css-loader',
             options: {
