@@ -1,8 +1,8 @@
 import { find } from 'lodash';
 
-// ! ВАЖНО!
-// без этого в dev-hot при изменении js будет как при перезагрузке страницы дергаться, с этим изменения выглядят гладко.
 console.log(`|42| ->    Boolean(module && module.hot)`, Boolean(module && module.hot));
+// ! IMPORTANT!
+// without it HMR doesn't work.
 if (module && module.hot) {
   module.hot.accept();
 }

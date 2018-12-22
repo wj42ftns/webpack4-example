@@ -6,6 +6,7 @@ const webpackConfig = require('./webpack.config');
 const PUBLIC = path.join(__dirname, 'public');
 
 module.exports = merge(webpackConfig, {
+  mode: 'development',
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
